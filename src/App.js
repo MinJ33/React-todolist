@@ -11,16 +11,22 @@ const [items, setItems] = useState([])
 // Helper Functions
 function addItem () {
  
+  // if there's no new item alert this
+  if (!newItem) {
+    alert("Enter an item")
+  }
+
   const item = {
-    id:Math.floor(Math.random() * 1000),
-    value:newItem // we get from the inputs
+    id: Math.floor(Math.random() * 1000),
+    value: newItem // we get from the inputs
   }
 
   setItems(oldList => [...oldList, item])
   setNewItem("");
-
-  // let's see what's inside of our items array
-  console.log(items)
+}
+  function deleteItem(id) {
+    const newArray = items.filter(item => item.id !== id);
+    setItems(newArray);
 }
 
   return (
@@ -28,7 +34,7 @@ function addItem () {
       {/* 1. Header */}
     <h1>Todo List App</h1>
 
-      {/* 2. Input (input and button) */}
+    {/* 2. Input (input and button) */}
     <input
       type="text"
       placeholder="Add an item.."
@@ -40,13 +46,16 @@ function addItem () {
 
     {/* 3. List of Items (unordered list with items) */}
     <ul>
-      <li>Take out the trash</li>
-      <li>Water the plants</li>
-      <li>Go to the gym</li>
+      {items.map(item => {
+        return (
+        <li key={item.id}>{item.value}
+        <button onClick={() => deleteItem(item.id) }>🔥</button>
+        </li>
+        )
+      })}
     </ul>
     </div>
-  );
-}
+  )}
 
 
 export default App;

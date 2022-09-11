@@ -5,18 +5,30 @@ function App(){
 
 // State hook 'useState'
 const [newItem, setNewItem] = useState("")
+                        // empty array initially
+const [items, setItems] = useState([])
 
 // Helper Functions
 function addItem () {
-  console.log(newItem)
+ 
+  const item = {
+    id:Math.floor(Math.random() * 1000),
+    value:newItem // we get from the inputs
+  }
+
+  setItems(oldList => [...oldList, item])
+  setNewItem("");
+
+  // let's see what's inside of our items array
+  console.log(items)
 }
 
   return (
     <div className="App">
       {/* 1. Header */}
     <h1>Todo List App</h1>
-      {/* 2. Input (input and button) */}
 
+      {/* 2. Input (input and button) */}
     <input
       type="text"
       placeholder="Add an item.."
